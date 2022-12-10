@@ -1,3 +1,5 @@
+const passwordHash = require('password-hash');
+
 class User {
 
   static schema = {
@@ -16,7 +18,7 @@ class User {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.password = password;
+    this.password = passwordHash.generate(password);
     this.is_admin = isAdmin;
   }
 

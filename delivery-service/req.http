@@ -24,3 +24,35 @@ Content-Type: application/json
 
 ### Borrar categoria.
 DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+
+
+### Obtener todas los usuarios.
+GET http://localhost:8001/users
+
+### Obtener usuario por ID.
+GET http://localhost:8001/users/1
+
+### Crear usuario.
+POST http://localhost:8001/users
+Content-Type: application/json
+
+{
+  "name": "Admin 2",
+  "email": "admin2@gmail.com",
+  "password": "123456",
+  "is_admin": true
+}
+
+### Actualizar usuario.
+PUT http://localhost:8001/users/1
+Content-Type: application/json
+
+{
+  "name": "User",
+  "email": "user@gmail.com",
+  "password": "password",
+  "is_admin": false
+}
+
+### Borrar usuario.
+DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
