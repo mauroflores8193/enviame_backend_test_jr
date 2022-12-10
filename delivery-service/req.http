@@ -1,0 +1,26 @@
+### Obtener todas las categorias.
+GET http://localhost:8001/categories
+
+### Obtener categoria por ID.
+GET http://localhost:8001/categories/1
+
+### Crear categoria.
+POST http://localhost:8001/categories
+Content-Type: application/json
+
+{
+    "name": "Categoría 1",
+    "description": "Descripción"
+}
+
+### Actualizar categoria.
+PUT http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+Content-Type: application/json
+
+{
+  "name": "Nueva categoría 1",
+  "description": "Nueva descripción"
+}
+
+### Borrar categoria.
+DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
