@@ -19,7 +19,12 @@ class SequelizeProductsRepository {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
       quantity: DataTypes.INTEGER,
-      status: DataTypes.BOOLEAN,
+      status: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return this.quantity > 0 ? 'active' : 'inactive';
+        }
+      }
     };
 
     const options = {

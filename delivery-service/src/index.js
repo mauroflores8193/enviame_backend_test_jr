@@ -13,6 +13,10 @@ const SequelizeProductsRepository = require('./products/repositories/sequelize-p
 const ManageProductsUsecase = require('./products/usecases/manage-products-usecase');
 const createProductsRouter = require('./products/http/products-router');
 
+const SequelizeTransactionsRepository = require('./transactions/repositories/sequelize-transactions-repository');
+const ManageTransactionsUsecase = require('./transactions/usecases/manage-transactions-usecase');
+const createTransactionsRouter = require('./transactions/http/transactions-router');
+
 const sequelizeClient = new SequelizeClient();
 
 const sequelizeCategoriesRepository = new SequelizeCategoriesRepository(sequelizeClient);
@@ -24,11 +28,20 @@ const manageUsersUsecase = new ManageUsersUsecase(sequelizeUsersRepository);
 const sequelizeProductsRepository = new SequelizeProductsRepository(sequelizeClient);
 const manageProductsUsecase = new ManageProductsUsecase(sequelizeProductsRepository);
 
-sequelizeUsersRepository.userModel.hasMany(sequelizeProductsRepository.productModel, { foreignKey: 'seller_user_id' });
-sequelizeProductsRepository.productModel.belongsTo(sequelizeUsersRepository.userModel, { foreignKey: 'seller_user_id' });
+const sequelizeTransactionsRepository = new SequelizeTransactionsRepository(sequelizeClient);
+const manageTransactionsUsecase = new ManageTransactionsUsecase(sequelizeTransactionsRepository);
 
-sequelizeCategoriesRepository.categoryModel.hasMany(sequelizeProductsRepository.productModel, { foreignKey: 'category_id' });
-sequelizeProductsRepository.productModel.belongsTo(sequelizeCategoriesRepository.categoryModel, { foreignKey: 'category_id' });
+sequelizeUsersRepository.userModel.hasMany(sequelizeProductsRepository.productModel, { as: 'SellerUser', foreignKey: 'SellerUserId' });
+sequelizeProductsRepository.productModel.belongsTo(sequelizeUsersRepository.userModel, { as: 'SellerUser', foreignKey: 'SellerUserId' });
+
+sequelizeCategoriesRepository.categoryModel.hasMany(sequelizeProductsRepository.productModel);
+sequelizeProductsRepository.productModel.belongsTo(sequelizeCategoriesRepository.categoryModel);
+
+sequelizeUsersRepository.userModel.hasMany(sequelizeTransactionsRepository.transactionModel, { as: 'BuyerUser', foreignKey: 'BuyerUserId' });
+sequelizeTransactionsRepository.transactionModel.belongsTo(sequelizeUsersRepository.userModel, { as: 'BuyerUser', foreignKey: 'BuyerUserId' });
+
+sequelizeTransactionsRepository.addProductRelation(sequelizeProductsRepository);
+sequelizeProductsRepository.productModel.belongsToMany(sequelizeTransactionsRepository.transactionModel, { through: 'TransactionProducts' });
 
 sequelizeClient.syncDatabase();
 
@@ -36,6 +49,7 @@ let routers = [
   createCategoriesRouter(manageCategoriesUsecase),
   createUsersRouter(manageUsersUsecase),
   createProductsRouter(manageProductsUsecase),
+  createTransactionsRouter(manageTransactionsUsecase)
 ];
 
 // Crear aplicación Express con dependencias inyectadas.

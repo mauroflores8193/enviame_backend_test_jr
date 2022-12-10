@@ -26,7 +26,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
 
 
-### Obtener todas los usuarios.
+### Obtener todos los usuarios.
 GET http://localhost:8001/users
 
 ### Obtener usuario por ID.
@@ -37,10 +37,10 @@ POST http://localhost:8001/users
 Content-Type: application/json
 
 {
-  "name": "Admin 2",
+  "name": "Comprador 2",
   "email": "admin2@gmail.com",
   "password": "123456",
-  "is_admin": true
+  "is_admin": false
 }
 
 ### Actualizar usuario.
@@ -58,7 +58,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
 
 
-### Obtener todas los productos.
+### Obtener todos los productos.
 GET http://localhost:8001/products
 
 ### Obtener producto por ID.
@@ -69,11 +69,11 @@ POST http://localhost:8001/products
 Content-Type: application/json
 
 {
-  "name": "Producto 1",
-  "description": "descripción producto 2",
-  "quantity": 1,
-  "seller_user_id": 1,
-  "category_id": 2
+  "name": "Producto 10",
+  "description": "descripción producto",
+  "quantity": 5,
+  "SellerUserId": 3,
+  "CategoryId": 2
 }
 
 ### Actualizar producto.
@@ -83,9 +83,43 @@ Content-Type: application/json
 {
   "name": "Nuevo producto 1",
   "description": "Nueva descripción producto 1",
-  "quantity": 0
+  "quantity": 4,
+  "SellerUserId": 3,
+  "CategoryId": 2
 }
-
 
 ### Borrar producto.
 DELETE http://localhost:8001/products/gIIQnRJzmonQ4WgUqEZq
+
+
+### Obtener todas las transacciones.
+GET http://localhost:8001/transactions
+
+### Obtener transaccion por ID.
+GET http://localhost:8001/transactions/1
+
+### Crear transaccion.
+POST http://localhost:8001/transactions
+Content-Type: application/json
+
+{
+  "BuyerUserId": 5,
+  "ProductIds": [
+    1,
+    2,
+    3
+  ]
+}
+
+### Actualizar transaccion.
+PUT http://localhost:8001/transactions/1
+Content-Type: application/json
+
+{
+  "name": "Nuevo transaccion 1",
+  "description": "Nueva descripción transaccion 1",
+  "quantity": 0
+}
+
+### Borrar transaccion.
+DELETE http://localhost:8001/transactions/7
