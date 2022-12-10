@@ -56,3 +56,36 @@ Content-Type: application/json
 
 ### Borrar usuario.
 DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
+
+
+### Obtener todas los productos.
+GET http://localhost:8001/products
+
+### Obtener producto por ID.
+GET http://localhost:8001/products/1
+
+### Crear producto.
+POST http://localhost:8001/products
+Content-Type: application/json
+
+{
+  "name": "Producto 1",
+  "description": "descripción producto 2",
+  "quantity": 1,
+  "seller_user_id": 1,
+  "category_id": 2
+}
+
+### Actualizar producto.
+PUT http://localhost:8001/products/1
+Content-Type: application/json
+
+{
+  "name": "Nuevo producto 1",
+  "description": "Nueva descripción producto 1",
+  "quantity": 0
+}
+
+
+### Borrar producto.
+DELETE http://localhost:8001/products/gIIQnRJzmonQ4WgUqEZq
