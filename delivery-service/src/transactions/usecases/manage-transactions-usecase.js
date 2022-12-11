@@ -29,6 +29,14 @@ class ManageTransactionsUsecase {
     await this.transactionsRepository.deleteTransaction(id);
   }
 
+  async getTransactionsByBuyers() {
+    return await this.transactionsRepository.getTransactionsByBuyers();
+  }
+
+  async getTransactionsBySellers() {
+    return await this.transactionsRepository.getTransactionsBySellers();
+  }
+
 }
 
 module.exports = ManageTransactionsUsecase;

@@ -48,6 +48,16 @@ function createTransactionsRouter(manageTransactionsUsecase) {
     res.status(200).send(`Deleted ${id}`);
   });
 
+  router.get("/buyers/transactions", async (req, res) => {
+    const transactions = await manageTransactionsUsecase.getTransactionsByBuyers();
+    res.status(200).send(transactions);
+  });
+
+  router.get("/sellers/transactions", async (req, res) => {
+    const transactions = await manageTransactionsUsecase.getTransactionsBySellers();
+    res.status(200).send(transactions);
+  });
+
   return router;
 
 }
