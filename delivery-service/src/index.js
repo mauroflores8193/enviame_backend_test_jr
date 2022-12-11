@@ -1,21 +1,21 @@
 const createExpressApp = require('./frameworks/http/express');
 const SequelizeClient = require('./frameworks/db/sequelize');
 
-const SequelizeCategoriesRepository = require('./categories/repositories/sequelize-categories-repository');
-const ManageCategoriesUsecase = require('./categories/usecases/manage-categories-usecase');
-const createCategoriesRouter = require('./categories/http/categories-router');
+const SequelizeCategoriesRepository = require('./marketplace/repositories/sequelize-categories-repository');
+const ManageCategoriesUsecase = require('./marketplace/usecases/manage-categories-usecase');
+const createCategoriesRouter = require('./marketplace/http/categories-router');
 
-const SequelizeUsersRepository = require('./users/repositories/sequelize-users-repository');
-const ManageUsersUsecase = require('./users/usecases/manage-users-usecase');
-const createUsersRouter = require('./users/http/users-router');
+const SequelizeUsersRepository = require('./marketplace/repositories/sequelize-users-repository');
+const ManageUsersUsecase = require('./marketplace/usecases/manage-users-usecase');
+const createUsersRouter = require('./marketplace/http/users-router');
 
-const SequelizeProductsRepository = require('./products/repositories/sequelize-products-repository');
-const ManageProductsUsecase = require('./products/usecases/manage-products-usecase');
-const createProductsRouter = require('./products/http/products-router');
+const SequelizeProductsRepository = require('./marketplace/repositories/sequelize-products-repository');
+const ManageProductsUsecase = require('./marketplace/usecases/manage-products-usecase');
+const createProductsRouter = require('./marketplace/http/products-router');
 
-const SequelizeTransactionsRepository = require('./transactions/repositories/sequelize-transactions-repository');
-const ManageTransactionsUsecase = require('./transactions/usecases/manage-transactions-usecase');
-const createTransactionsRouter = require('./transactions/http/transactions-router');
+const SequelizeTransactionsRepository = require('./marketplace/repositories/sequelize-transactions-repository');
+const ManageTransactionsUsecase = require('./marketplace/usecases/manage-transactions-usecase');
+const createTransactionsRouter = require('./marketplace/http/transactions-router');
 
 const sequelizeClient = new SequelizeClient();
 
