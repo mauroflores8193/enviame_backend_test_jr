@@ -37,6 +37,11 @@ class ManageCategoriesUsecase {
     await this.categoriesRepository.deleteCategory(id);
   }
 
+
+  async getCategoriesByBuyer(buyerId) {
+    return await this.categoriesRepository.getCategoriesByBuyer(buyerId);
+  }
+
 }
 
 module.exports = ManageCategoriesUsecase;

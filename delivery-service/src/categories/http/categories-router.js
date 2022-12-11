@@ -17,15 +17,15 @@ function createCategoriesRouter(manageCategoriesUsecase) {
 
   router.get("/categories/:id", async (req, res) => {
     const id = req.params.id;
-    const book = await manageCategoriesUsecase.getCategory(id);
-    res.status(200).send(book);
+    const category = await manageCategoriesUsecase.getCategory(id);
+    res.status(200).send(category);
   });
 
   router.post("/categories", async (req, res) => {
     const validation = validateSchema(Category.schema, req);
     if (validation === true) {
-      const book = await manageCategoriesUsecase.createCategory(req.body);
-      res.status(201).send(book);
+      const category = await manageCategoriesUsecase.createCategory(req.body);
+      res.status(201).send(category);
     } else {
       res.status(422).send(validation)
     }
@@ -35,8 +35,8 @@ function createCategoriesRouter(manageCategoriesUsecase) {
     const validation = validateSchema(Category.schema, req);
     if (validation === true) {
       const id = req.params.id;
-      const book = await manageCategoriesUsecase.updateCategory(id, req.body);
-      res.status(200).send(book);
+      const category = await manageCategoriesUsecase.updateCategory(id, req.body);
+      res.status(200).send(category);
     } else {
       res.status(422).send(validation);
     }
@@ -46,6 +46,12 @@ function createCategoriesRouter(manageCategoriesUsecase) {
     const id = req.params.id;
     await manageCategoriesUsecase.deleteCategory(id);
     res.status(200).send(`Deleted ${id}`);
+  });
+
+  router.get("/buyers/:buyerId/categories", async (req, res) => {
+    const buyerId = req.params.buyerId;
+    const categories = await manageCategoriesUsecase.getCategoriesByBuyer(buyerId);
+    res.status(200).send(categories);
   });
 
   return router;

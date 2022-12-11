@@ -3,6 +3,7 @@ const { DataTypes } = require('sequelize');
 class SequelizeCategoriesRepository {
 
   constructor(sequelizeClient, test = false) {
+    this.sequelizeClient = sequelizeClient
     this.test = test;
 
     let tableName = "Categories";
@@ -75,6 +76,10 @@ class SequelizeCategoriesRepository {
     if (this.test) {
       await this.categoryModel.drop();
     }
+  }
+
+  async getCategoriesByBuyer(buyerId) {
+    return await this.sequelizeClient.query("");
   }
 
 }
