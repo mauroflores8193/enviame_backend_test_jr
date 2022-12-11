@@ -1,3 +1,4 @@
+# CRUD Category
 ### Obtener todas las categorias.
 GET http://localhost:8001/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -30,7 +31,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
-
+# CRUD Users
 ### Obtener todos los usuarios.
 GET http://localhost:8001/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -67,7 +68,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
-
+# CRUD Product
 ### Obtener todos los productos.
 GET http://localhost:8001/products
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -106,7 +107,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/products/gIIQnRJzmonQ4WgUqEZq
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
-
+# CRUD Transaction
 ### Obtener todas las transacciones.
 GET http://localhost:8001/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -143,7 +144,7 @@ Content-Type: application/json
 DELETE http://localhost:8001/transactions/7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
-
+# Listado de USER por tipo (BUYER y SELLER)
 ### Listado de compradores
 GET http://localhost:8001/buyers
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -152,6 +153,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 GET http://localhost:8001/sellers
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
+# Listado de TRANSACTION por tipo de USER.
 ### Listado de transacciones por compradores
 GET http://localhost:8001/buyers/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
@@ -160,6 +162,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 GET http://localhost:8001/sellers/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
+# Listado de CATEGORY relacionados con un BUYER USER.
 ### Listado de categorias por usuario comprador
 GET http://localhost:8001/buyers/8/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w

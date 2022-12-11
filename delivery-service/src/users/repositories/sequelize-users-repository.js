@@ -81,19 +81,19 @@ class SequelizeUsersRepository {
   }
 
   async getBuyers() {
-    return await this.sequelizeClient.query(
-      "SELECT u.id, u.name, u.email, count(t.id) as transactions " +
-      "FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId " +
-      "GROUP BY u.id, u.name, u.email"
-    );
+    return await this.sequelizeClient.query(`
+      SELECT u.id, u.name, u.email, count(t.id) as transactions
+      FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId
+      GROUP BY u.id, u.name, u.email
+    `);
   }
 
   async getSellers() {
-    return await this.sequelizeClient.query(
-      "SELECT u.id, u.name, u.email, count(p.id) as products " +
-      "FROM Users as u JOIN Products as p ON u.id = p.SellerUserId " +
-      "GROUP BY u.id, u.name, u.email"
-    );
+    return await this.sequelizeClient.query(`
+      SELECT u.id, u.name, u.email, count(p.id) as products
+      FROM Users as u JOIN Products as p ON u.id = p.SellerUserId
+      GROUP BY u.id, u.name, u.email
+    `);
   }
 
 }

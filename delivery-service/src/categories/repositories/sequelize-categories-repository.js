@@ -79,7 +79,6 @@ class SequelizeCategoriesRepository {
   }
 
   async getCategoriesByBuyer(buyerId) {
-    console.log(buyerId)
     return await this.sequelizeClient.query(`
       SELECT DISTINCT c.id, c.name 
       FROM Categories as c 

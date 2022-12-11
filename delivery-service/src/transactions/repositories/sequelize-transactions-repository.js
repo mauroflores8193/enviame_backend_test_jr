@@ -91,19 +91,19 @@ class SequelizeTransactionsRepository {
   }
 
   async getTransactionsByBuyers() {
-    return await this.sequelizeClient.query(
-      "SELECT t.id, t.BuyerUserId, u.name as buyer " +
-      "FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId "
-    );
+    return await this.sequelizeClient.query(`
+      SELECT t.id, t.BuyerUserId, u.name as buyer
+      FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId
+    `);
   }
 
   async getTransactionsBySellers() {
-    return await this.sequelizeClient.query(
-      "SELECT DISTINCT t.id, p.SellerUserId, u.name as seller " +
-      "FROM Transactions as t " +
-      " JOIN TransactionProducts as tp ON t.id = tp.TransactionId " +
-      " JOIN Products as p ON tp.ProductId = p.id JOIN Users as u ON p.SellerUserId = u.id "
-    );
+    return await this.sequelizeClient.query(`
+      SELECT DISTINCT t.id, p.SellerUserId, u.name as seller
+      FROM Transactions as t
+       JOIN TransactionProducts as tp ON t.id = tp.TransactionId
+       JOIN Products as p ON tp.ProductId = p.id JOIN Users as u ON p.SellerUserId = u.id
+    `);
   }
 
 }
