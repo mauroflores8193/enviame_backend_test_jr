@@ -2,10 +2,13 @@ const express = require('express');
 const appRoot = require('app-root-path');
 const Product = require('../entities/product');
 const validateSchema = require(appRoot + "/src/frameworks/http/ajv");
+const authenticateToken = require("../../frameworks/middlewares/authenticate-token");
 
 function createProductsRouter(manageProductsUsecase) {
 
   const router = express.Router();
+
+  router.use(authenticateToken);
 
   router.get("/products", async (req, res) => {
     const products = await manageProductsUsecase.getProducts();

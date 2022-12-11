@@ -2,10 +2,13 @@ const express = require('express');
 const appRoot = require('app-root-path');
 const Category = require('../entities/category');
 const validateSchema = require(appRoot + "/src/frameworks/http/ajv");
+const authenticateToken = require("../../frameworks/middlewares/authenticate-token");
 
 function createCategoriesRouter(manageCategoriesUsecase) {
 
   const router = express.Router();
+
+  router.use(authenticateToken);
 
   router.get("/categories", async (req, res) => {
     const categories = await manageCategoriesUsecase.getCategories();

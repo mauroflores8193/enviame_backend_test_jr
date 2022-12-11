@@ -2,10 +2,13 @@ const express = require('express');
 const appRoot = require('app-root-path');
 const User = require('../entities/user');
 const validateSchema = require(appRoot + "/src/frameworks/http/ajv");
+const authenticateToken = require("../../frameworks/middlewares/authenticate-token");
 
 function createUsersRouter(manageUsersUsecase) {
 
   const router = express.Router();
+
+  router.use(authenticateToken);
 
   router.get("/users", async (req, res) => {
     const users = await manageUsersUsecase.getUsers();

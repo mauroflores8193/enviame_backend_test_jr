@@ -1,20 +1,24 @@
 ### Obtener todas las categorias.
 GET http://localhost:8001/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Obtener categoria por ID.
 GET http://localhost:8001/categories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Crear categoria.
 POST http://localhost:8001/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
-    "name": "Categoría 1",
+    "name": "Categoría 2",
     "description": "Descripción"
 }
 
 ### Actualizar categoria.
 PUT http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -24,16 +28,20 @@ Content-Type: application/json
 
 ### Borrar categoria.
 DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 
 ### Obtener todos los usuarios.
 GET http://localhost:8001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Obtener usuario por ID.
 GET http://localhost:8001/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Crear usuario.
 POST http://localhost:8001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -45,6 +53,7 @@ Content-Type: application/json
 
 ### Actualizar usuario.
 PUT http://localhost:8001/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -56,16 +65,20 @@ Content-Type: application/json
 
 ### Borrar usuario.
 DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 
 ### Obtener todos los productos.
 GET http://localhost:8001/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Obtener producto por ID.
 GET http://localhost:8001/products/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Crear producto.
 POST http://localhost:8001/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -78,6 +91,7 @@ Content-Type: application/json
 
 ### Actualizar producto.
 PUT http://localhost:8001/products/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -90,16 +104,20 @@ Content-Type: application/json
 
 ### Borrar producto.
 DELETE http://localhost:8001/products/gIIQnRJzmonQ4WgUqEZq
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 
 ### Obtener todas las transacciones.
 GET http://localhost:8001/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Obtener transaccion por ID.
 GET http://localhost:8001/transactions/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 ### Crear transaccion.
 POST http://localhost:8001/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -113,6 +131,7 @@ Content-Type: application/json
 
 ### Actualizar transaccion.
 PUT http://localhost:8001/transactions/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
 {
@@ -123,3 +142,4 @@ Content-Type: application/json
 
 ### Borrar transaccion.
 DELETE http://localhost:8001/transactions/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w

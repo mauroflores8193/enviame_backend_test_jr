@@ -16,6 +16,7 @@
       "express": "^4.17.1",
       "ajv": "^8.6.0",
       "ajv-errors": "^3.0.0",
+      "jsonwebtoken": "^8.5.1",
       "mysql2": "^2.2.5",
       "password-hash": "^1.2.2",
       "redis": "^3.0.2",

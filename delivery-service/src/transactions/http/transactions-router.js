@@ -2,10 +2,13 @@ const express = require('express');
 const appRoot = require('app-root-path');
 const Transaction = require('../entities/transaction');
 const validateSchema = require(appRoot + "/src/frameworks/http/ajv");
+const authenticateToken = require("../../frameworks/middlewares/authenticate-token");
 
 function createTransactionsRouter(manageTransactionsUsecase) {
 
   const router = express.Router();
+
+  router.use(authenticateToken);
 
   router.get("/transactions", async (req, res) => {
     const transactions = await manageTransactionsUsecase.getTransactions();
