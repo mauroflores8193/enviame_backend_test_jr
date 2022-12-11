@@ -3,6 +3,7 @@ const {DataTypes} = require('sequelize');
 class SequelizeUsersRepository {
 
   constructor(sequelizeClient, test = false) {
+    this.sequelizeClient = sequelizeClient
     this.test = test;
 
     let tableName = "Users";
@@ -77,6 +78,22 @@ class SequelizeUsersRepository {
     if (this.test) {
       await this.userModel.drop();
     }
+  }
+
+  async getBuyers() {
+    return await this.sequelizeClient.query(
+      "SELECT u.id, u.name, u.email, count(t.id) as transactions " +
+      "FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId " +
+      "GROUP BY u.id, u.name, u.email"
+    );
+  }
+
+  async getSellers() {
+    return await this.sequelizeClient.query(
+      "SELECT u.id, u.name, u.email, count(p.id) as products " +
+      "FROM Users as u JOIN Products as p ON u.id = p.SellerUserId " +
+      "GROUP BY u.id, u.name, u.email"
+    );
   }
 
 }

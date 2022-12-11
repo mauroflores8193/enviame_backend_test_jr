@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize');
 
 // Conexión a una base de datos SQL por medio del ORM 
 // Es agnóstico a la base de datos misma (MySQL, Postgres, etc).
@@ -50,6 +50,10 @@ class SequelizeClient {
         console.log("Couldn't sync database", error);
       });
 
+  }
+
+  async query(sql) {
+    return await this.sequelize.query(sql, { type: QueryTypes.SELECT })
   }
 
 }

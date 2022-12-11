@@ -48,6 +48,16 @@ function createUsersRouter(manageUsersUsecase) {
     res.status(200).send(`Deleted ${id}`);
   });
 
+  router.get("/buyers", async (req, res) => {
+    const buyers = await manageUsersUsecase.getBuyers();
+    res.status(200).send(buyers);
+  });
+
+  router.get("/sellers", async (req, res) => {
+    const sellers = await manageUsersUsecase.getSellers();
+    res.status(200).send(sellers);
+  });
+
   return router;
 
 }

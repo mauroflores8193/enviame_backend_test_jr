@@ -31,6 +31,14 @@ class ManageUsersUsecase {
     await this.usersRepository.deleteUser(id);
   }
 
+  async getBuyers() {
+    return await this.usersRepository.getBuyers();
+  }
+
+  async getSellers() {
+    return await this.usersRepository.getSellers();
+  }
+
 }
 
 module.exports = ManageUsersUsecase;
