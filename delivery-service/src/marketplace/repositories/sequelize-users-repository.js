@@ -1,4 +1,4 @@
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const SequelizeRepository = require("./sequelize-repository");
 
 class SequelizeUsersRepository extends SequelizeRepository {
@@ -19,6 +19,11 @@ class SequelizeUsersRepository extends SequelizeRepository {
       password: DataTypes.STRING,
       is_admin: DataTypes.BOOLEAN,
     }
+  }
+
+  addRelations(productsRepository, transactionsRepository) {
+    this.model.hasMany(productsRepository.model, { as: 'SellerUser', foreignKey: 'sellerUserId' });
+    this.model.hasMany(transactionsRepository.model, { as: 'BuyerUser', foreignKey: 'buyerUserId' });
   }
 
   async getBuyers() {

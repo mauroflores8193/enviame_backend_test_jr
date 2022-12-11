@@ -29,22 +29,27 @@ class SequelizeTransactionsRepository extends SequelizeRepository {
     return data;
   }
 
-  async delete(id) {
-    const transaction = await this.model.findByPk(id, {
+  async get(id) {
+    return await this.model.findByPk(id, {
       include: [{
         model: this.productsRepository.model,
         through: { attributes: [] }
       }]
     })
+  }
+
+  async delete(id) {
+    const transaction = await this.get(id)
     for (let product of transaction.Products) {
       product.increment('quantity', { by: 1 })
     }
     await transaction.destroy();
   }
 
-  addProductRelation(productsRepository) {
+  addRelations(productsRepository, usersRepository) {
     this.productsRepository = productsRepository
     this.model.belongsToMany(productsRepository.model, { through: 'TransactionProducts', foreignKey: 'transactionId' })
+    this.model.belongsTo(usersRepository.model, { as: 'BuyerUser', foreignKey: 'buyerUserId' });
   }
 
   async getTransactionsByBuyers() {

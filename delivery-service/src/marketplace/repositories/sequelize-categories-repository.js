@@ -30,6 +30,10 @@ class SequelizeCategoriesRepository extends SequelizeRepository {
     `, {replacements: [buyerId]});
   }
 
+  addRelations(productsRepository) {
+    this.model.hasMany(productsRepository.model, { foreignKey: 'categoryId' });
+  }
+
 }
 
 module.exports = SequelizeCategoriesRepository;

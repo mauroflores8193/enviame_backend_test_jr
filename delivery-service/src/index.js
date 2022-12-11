@@ -31,32 +31,10 @@ const manageProductsUsecase = new ManageProductsUsecase(sequelizeProductsReposit
 const sequelizeTransactionsRepository = new SequelizeTransactionsRepository(sequelizeClient);
 const manageTransactionsUsecase = new ManageTransactionsUsecase(sequelizeTransactionsRepository);
 
-sequelizeUsersRepository.model.hasMany(sequelizeProductsRepository.model, {
-  as: 'SellerUser',
-  foreignKey: 'sellerUserId'
-});
-sequelizeProductsRepository.model.belongsTo(sequelizeUsersRepository.model, {
-  as: 'SellerUser',
-  foreignKey: 'sellerUserId'
-});
-
-sequelizeCategoriesRepository.model.hasMany(sequelizeProductsRepository.model, { foreignKey: 'categoryId' });
-sequelizeProductsRepository.model.belongsTo(sequelizeCategoriesRepository.model, { foreignKey: 'categoryId' });
-
-sequelizeUsersRepository.model.hasMany(sequelizeTransactionsRepository.model, {
-  as: 'BuyerUser',
-  foreignKey: 'buyerUserId'
-});
-sequelizeTransactionsRepository.model.belongsTo(sequelizeUsersRepository.model, {
-  as: 'BuyerUser',
-  foreignKey: 'buyerUserId'
-});
-
-sequelizeTransactionsRepository.addProductRelation(sequelizeProductsRepository);
-sequelizeProductsRepository.model.belongsToMany(sequelizeTransactionsRepository.model, {
-  through: 'TransactionProducts',
-  foreignKey: 'productId'
-});
+sequelizeUsersRepository.addRelations(sequelizeProductsRepository, sequelizeTransactionsRepository)
+sequelizeProductsRepository.addRelations(sequelizeUsersRepository, sequelizeCategoriesRepository, sequelizeTransactionsRepository)
+sequelizeCategoriesRepository.addRelations(sequelizeProductsRepository)
+sequelizeTransactionsRepository.addRelations(sequelizeProductsRepository, sequelizeUsersRepository);
 
 sequelizeClient.syncDatabase();
 

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const SequelizeRepository = require("./sequelize-repository");
 
-class SequelizeProductsRepository extends SequelizeRepository{
+class SequelizeProductsRepository extends SequelizeRepository {
 
   constructor(sequelizeClient, test = false) {
     super(sequelizeClient, "Products", "Product", test)
@@ -25,6 +25,13 @@ class SequelizeProductsRepository extends SequelizeRepository{
       }
     };
   }
+
+  addRelations(usersRepository, categoriesRepository, transactionsRepository) {
+    this.model.belongsTo(usersRepository.model, { as: 'SellerUser', foreignKey: 'sellerUserId' });
+    this.model.belongsTo(categoriesRepository.model, { foreignKey: 'categoryId' });
+    this.model.belongsToMany(transactionsRepository.model, { through: 'TransactionProducts', foreignKey: 'productId' });
+  }
+
 
 }
 
