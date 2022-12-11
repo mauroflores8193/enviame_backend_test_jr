@@ -7,28 +7,26 @@ class ManageUsersUsecase {
   }
 
   async getUsers() {
-    return await this.usersRepository.getUsers();
+    return await this.usersRepository.getAll();
   }
 
   async getUser(id) {
-    return await this.usersRepository.getUser(id);
+    return await this.usersRepository.get(id);
   }
 
   async createUser(data) {
     const user = new User(undefined, data.name, data.email, data.password, data.is_admin);
-    const id = await this.usersRepository.createUser(user);
-    user.id = id;
-    return user;
+    return await this.usersRepository.create(user);
   }
 
   async updateUser(id, data) {
     const user = new User(id, data.name, data.email, data.password, data.is_admin);
-    await this.usersRepository.updateUser(user);
+    await this.usersRepository.update(user);
     return user;
   }
 
   async deleteUser(id) {
-    await this.usersRepository.deleteUser(id);
+    await this.usersRepository.delete(id);
   }
 
   async getBuyers() {

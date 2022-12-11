@@ -1,17 +1,14 @@
 const { DataTypes } = require('sequelize');
+const SequelizeRepository = require("./sequelize-repository");
 
-class SequelizeCategoriesRepository {
+class SequelizeCategoriesRepository extends SequelizeRepository {
 
   constructor(sequelizeClient, test = false) {
-    this.sequelizeClient = sequelizeClient
-    this.test = test;
+    super(sequelizeClient, "Categories", "Category", test)
+  }
 
-    let tableName = "Categories";
-    if (test) {
-      tableName += "_test";
-    }
-
-    const columns = {
+  columns() {
+    return {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -20,62 +17,6 @@ class SequelizeCategoriesRepository {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
     };
-
-    const options = {
-      tableName: tableName,
-      timestamps: false,
-    };
-
-    this.categoryModel = sequelizeClient.sequelize.define('Category', columns, options);
-  }
-
-  async getCategories() {
-    const categories = await this.categoryModel.findAll({
-      raw: true
-    });
-    return categories;
-  }
-
-  async getCategory(id) {
-    return await this.categoryModel.findByPk(id);
-  }
-
-  async createCategory(category) {
-    const data = await this.categoryModel.create(category);
-    return data.id;
-  }
-
-  async updateCategory(category) {
-    const options = {
-      where: {
-        id: category.id,
-      }
-    };
-    await this.categoryModel.update(category, options);
-  }
-
-  async deleteCategory(id) {
-    const options = {
-      where: {
-        id: id,
-      }
-    };
-    await this.categoryModel.destroy(options);
-  }
-
-  async deleteAllCategories() {
-    if (this.test) {
-      const options = {
-        truncate: true
-      };
-      await this.categoryModel.destroy(options);
-    }
-  }
-
-  async dropCategoriesTable() {
-    if (this.test) {
-      await this.categoryModel.drop();
-    }
   }
 
   async getCategoriesByBuyer(buyerId) {

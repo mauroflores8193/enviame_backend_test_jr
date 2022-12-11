@@ -13,12 +13,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-    "name": "Categoría 3",
+    "name": "Categoría 4",
     "description": "Descripción"
 }
 
 ### Actualizar categoria.
-PUT http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+PUT http://localhost:8001/categories/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### Borrar categoria.
-DELETE http://localhost:8001/categories/gIIQnRJzmonQ4WgUqEZq
+DELETE http://localhost:8001/categories/4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 # CRUD Users
@@ -46,8 +46,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-  "name": "buyer3",
-  "email": "buyer3@gmail.com",
+  "name": "buyer4",
+  "email": "buyer4@gmail.com",
   "password": "123456",
   "is_admin": false
 }
@@ -58,14 +58,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-  "name": "User",
-  "email": "user@gmail.com",
-  "password": "password",
-  "is_admin": false
+  "name": "admin1",
+  "email": "admin1@gmail.com",
+  "password": "123456",
+  "is_admin": true
 }
 
 ### Borrar usuario.
-DELETE http://localhost:8001/users/gIIQnRJzmonQ4WgUqEZq
+DELETE http://localhost:8001/users/9
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 # CRUD Product
@@ -83,7 +83,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-  "name": "Producto 6",
+  "name": "Producto 7",
   "description": "descripción producto",
   "quantity": 0,
   "sellerUserId": 5,
@@ -104,7 +104,7 @@ Content-Type: application/json
 }
 
 ### Borrar producto.
-DELETE http://localhost:8001/products/gIIQnRJzmonQ4WgUqEZq
+DELETE http://localhost:8001/products/7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 # CRUD Transaction
@@ -135,13 +135,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-  "name": "Nuevo transaccion 1",
-  "description": "Nueva descripción transaccion 1",
-  "quantity": 0
+  "buyerUserId": 8
 }
 
 ### Borrar transaccion.
-DELETE http://localhost:8001/transactions/7
+DELETE http://localhost:8001/transactions/4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 
 # Listado de USER por tipo (BUYER y SELLER)

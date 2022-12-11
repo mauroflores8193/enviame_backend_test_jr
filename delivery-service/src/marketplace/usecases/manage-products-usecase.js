@@ -7,28 +7,26 @@ class ManageProductsUsecase {
   }
 
   async getProducts() {
-    return await this.productsRepository.getProducts();
+    return await this.productsRepository.getAll();
   }
 
   async getProduct(id) {
-    return await this.productsRepository.getProduct(id);
+    return await this.productsRepository.get(id);
   }
 
   async createProduct(data) {
     const product = new Product(undefined, data.name, data.description, data.quantity, data.sellerUserId, data.categoryId);
-    const id = await this.productsRepository.createProduct(product);
-    product.id = id;
-    return product;
+    return await this.productsRepository.create(product);
   }
 
   async updateProduct(id, data) {
     const product = new Product(id, data.name, data.description, data.quantity, data.sellerUserId, data.categoryId);
-    await this.productsRepository.updateProduct(product);
+    await this.productsRepository.update(product);
     return product;
   }
 
   async deleteProduct(id) {
-    await this.productsRepository.deleteProduct(id);
+    await this.productsRepository.delete(id);
   }
 
 }

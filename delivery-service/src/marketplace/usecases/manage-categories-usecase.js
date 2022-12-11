@@ -7,34 +7,27 @@ class ManageCategoriesUsecase {
   }
 
   async getCategories() {
-    return await this.categoriesRepository.getCategories();
+    return await this.categoriesRepository.getAll();
   }
 
   async getCategory(id) {
-    return await this.categoriesRepository.getCategory(id);
+    return await this.categoriesRepository.get(id);
   }
 
   async createCategory(data) {
-    
     const category = new Category(undefined, data.name, data.description);
-    const id = await this.categoriesRepository.createCategory(category);
-    category.id = id;
-
-    return category;
-
+    return await this.categoriesRepository.create(category);
   }
 
   async updateCategory(id, data) {
-
     const category = new Category(id, data.name, data.description);
-    await this.categoriesRepository.updateCategory(category);
-
+    await this.categoriesRepository.update(category);
     return category;
 
   }
 
   async deleteCategory(id) {
-    await this.categoriesRepository.deleteCategory(id);
+    await this.categoriesRepository.delete(id);
   }
 
 

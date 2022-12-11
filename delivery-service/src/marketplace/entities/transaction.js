@@ -6,7 +6,7 @@ class Transaction {
       buyerUserId: {type: "integer", errorMessage: 'must be of integer type'},
       productIds: {type: "array", items: {type: "integer"}, errorMessage: 'must be of integer array type'}
     },
-    required: ["buyerUserId", "productIds"],
+    required: ["buyerUserId"],
     additionalProperties: false,
   }
 

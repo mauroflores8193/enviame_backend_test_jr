@@ -1,45 +1,26 @@
 const { DataTypes } = require('sequelize');
+const SequelizeRepository = require("./sequelize-repository");
 
-class SequelizeTransactionsRepository {
+class SequelizeTransactionsRepository extends SequelizeRepository {
 
   constructor(sequelizeClient, test = false) {
-    this.sequelizeClient = sequelizeClient
-    this.test = test;
+    super(sequelizeClient, "Transactions", "Transaction", test)
+  }
 
-    let tableName = "Transactions";
-    if (test) {
-      tableName += "_test";
-    }
-
-    const columns = {
+  columns() {
+    return {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       }
     };
-
-    const options = {
-      tableName: tableName,
-      timestamps: false,
-    };
-
-    this.transactionModel = sequelizeClient.sequelize.define('Transaction', columns, options);
   }
 
-  async getTransactions() {
-    const transactions = await this.transactionModel.findAll({ raw: true });
-    return transactions;
-  }
-
-  async getTransaction(id) {
-    return await this.transactionModel.findByPk(id);
-  }
-
-  async createTransaction(transaction) {
-    const data = await this.transactionModel.create(transaction);
+  async create(transaction) {
+    const data = await super.create(transaction);
     for (let productId of transaction.productIds) {
-      const product = await this.productsRepository.getProduct(productId)
+      const product = await this.productsRepository.get(productId)
       if (product.status === 'active') {
         product.decrement('quantity', { by: 1 })
         data.addProduct(product)
@@ -48,19 +29,10 @@ class SequelizeTransactionsRepository {
     return data;
   }
 
-  async updateTransaction(transaction) {
-    const options = {
-      where: {
-        id: transaction.id,
-      }
-    };
-    await this.transactionModel.update(transaction, options);
-  }
-
-  async deleteTransaction(id) {
-    const transaction = await this.transactionModel.findByPk(id, {
+  async delete(id) {
+    const transaction = await this.model.findByPk(id, {
       include: [{
-        model: this.productsRepository.productModel,
+        model: this.productsRepository.model,
         through: { attributes: [] }
       }]
     })
@@ -70,27 +42,9 @@ class SequelizeTransactionsRepository {
     await transaction.destroy();
   }
 
-  async deleteAllTransactions() {
-    if (this.test) {
-      const options = {
-        truncate: true
-      };
-      await this.transactionModel.destroy(options);
-    }
-  }
-
-  async dropTransactionsTable() {
-    if (this.test) {
-      await this.transactionModel.drop();
-    }
-  }
-
   addProductRelation(productsRepository) {
     this.productsRepository = productsRepository
-    this.transactionModel.belongsToMany(productsRepository.productModel, {
-      through: 'TransactionProducts',
-      foreignKey: 'transactionId'
-    })
+    this.model.belongsToMany(productsRepository.model, { through: 'TransactionProducts', foreignKey: 'transactionId' })
   }
 
   async getTransactionsByBuyers() {

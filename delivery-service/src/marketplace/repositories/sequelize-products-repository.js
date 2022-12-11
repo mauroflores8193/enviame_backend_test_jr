@@ -1,16 +1,14 @@
 const { DataTypes } = require('sequelize');
+const SequelizeRepository = require("./sequelize-repository");
 
-class SequelizeProductsRepository {
+class SequelizeProductsRepository extends SequelizeRepository{
 
   constructor(sequelizeClient, test = false) {
-    this.test = test;
+    super(sequelizeClient, "Products", "Product", test)
+  }
 
-    let tableName = "Products";
-    if (test) {
-      tableName += "_test";
-    }
-
-    const columns = {
+  columns() {
+    return {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -26,60 +24,6 @@ class SequelizeProductsRepository {
         }
       }
     };
-
-    const options = {
-      tableName: tableName,
-      timestamps: false,
-    };
-
-    this.productModel = sequelizeClient.sequelize.define('Product', columns, options);
-  }
-
-  async getProducts() {
-    const products = await this.productModel.findAll({ raw: true });
-    return products;
-  }
-
-  async getProduct(id) {
-    return await this.productModel.findByPk(id);
-  }
-
-  async createProduct(product) {
-    const data = await this.productModel.create(product);
-    return data.id;
-  }
-
-  async updateProduct(product) {
-    const options = {
-      where: {
-        id: product.id,
-      }
-    };
-    await this.productModel.update(product, options);
-  }
-
-  async deleteProduct(id) {
-    const options = {
-      where: {
-        id: id,
-      }
-    };
-    await this.productModel.destroy(options);
-  }
-
-  async deleteAllProducts() {
-    if (this.test) {
-      const options = {
-        truncate: true
-      };
-      await this.productModel.destroy(options);
-    }
-  }
-
-  async dropProductsTable() {
-    if (this.test) {
-      await this.productModel.drop();
-    }
   }
 
 }

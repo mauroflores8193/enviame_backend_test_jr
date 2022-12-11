@@ -7,26 +7,26 @@ class ManageTransactionsUsecase {
   }
 
   async getTransactions() {
-    return await this.transactionsRepository.getTransactions();
+    return await this.transactionsRepository.getAll();
   }
 
   async getTransaction(id) {
-    return await this.transactionsRepository.getTransaction(id);
+    return await this.transactionsRepository.get(id);
   }
 
   async createTransaction(data) {
     const transaction = new Transaction(undefined, data.buyerUserId, data.productIds);
-    return await this.transactionsRepository.createTransaction(transaction);
+    return await this.transactionsRepository.create(transaction);
   }
 
   async updateTransaction(id, data) {
     const transaction = new Transaction(id, data.buyerUserId);
-    await this.transactionsRepository.updateTransaction(transaction);
+    await this.transactionsRepository.update(transaction);
     return transaction;
   }
 
   async deleteTransaction(id) {
-    await this.transactionsRepository.deleteTransaction(id);
+    await this.transactionsRepository.delete(id);
   }
 
   async getTransactionsByBuyers() {
