@@ -1,66 +1,794 @@
-# Project Name: NodeJS Clean Architecture Microservices Templates
+# Project Name: Ecommerce NodeJS Clean Architecture Microservices
 
-### Description
+### Descripción
 
-The template was structured following the principles defined by [clean architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/).
+El proyecto está basado en el template provisto para este reto técnico basado en los principios definidos
+por [clean architecture](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/).
 
-The base template written with NodeJS using Express, Sequelize, Firestore, MySQL and Redis.
+### Tecnologías 🛠️
 
-Each service has his own database, but the schema, user, password params are the same for both.
+* NodeJS 14
+* Express
+* Sequelize
+* Javascript
+* MySQL
+* Docker
+* Docker compose
 
-In this example, each application contains two sections: one called "greeting", which is simply an endpoint that returns a greeting indicating the visitor's number, which is obtained from a cache, and the other is "books", which consists of a CRUD of books, which are stored in a database, either in MySQL or in Firestore.
+## Requisitos
 
-Being a NodeJS project, the following conventions are followed:
+- Docker instalado
 
-- Two-space identation (no tabs), even in non-`.js` files.
-- Class names in `UpperCamelCase`.
-- Methods, functions and variables in `camelCase`.
-- Module names (`.js` files) in `kebab-case`.
-- Package names (folders) in `lowercase`, no underscores even if they contain more than one word (eg" usecases "instead of" use_cases ").
+## Instalación y ejecución
 
-### Construction 🛠️
-* **Language:** NodeJS 14
-* **Framework:** Express, Sequelize, Firestore, Redis.
+- Clonar el project.
 
-## Requirements
-- Docker installed
+Ejecutar el comando ```docker-compose``` dentro de la carpeta clonada.
 
-## Installation and execution
+* Building los contenedores: ```docker-compose build```
 
-- Clone or Fork the project.
-- Copy **.env.example** to **.env**. It will be used as environment variables source.
-- Inside Docker/app folders of ecommerce-service and delivery-services:
-* Copy **.env.example** to **.env**. It will be used as environment variables source.
+* Iniciar el servicio: ```docker-compose up -d```
 
-Run ```docker-compose``` command inside **docker-nodejs** folder.
+* Detener el servicio : ```docker-compose stop```
 
-* Building the containers: ```docker-compose build```
+Los microservicios por defecto corren en los siguientes puertos:
 
-* Starting the services: ```docker-compose up -d```
-
-* Stoping the services: ```docker-compose stop```
-
-By default the microservices will run under the following ports:
 - ecommerce-service: 8000
 - delivery-service: 8001
 
-Check the **.env.example** file to change these or any other params.
+Puede cambiar esta y otras configuraciones en el archivo **.env**.
 
-#### Note
+#### Nota
 
-The NodeJS application will probably throw an exception the first time, because it will try to connect to the MySQL service that is still initializing for the first time; in this case wait for MySQL to fully initialize first and then run the command `docker-compose restart $NAME_SERVICE` in another terminal to restart the crashed service.
+La aplicación NodeJS probablemente lanzará una excepción la primera vez, porque intentará conectarse al servicio MySQL
+que aún se está inicializando por primera vez; en este caso, espere a que MySQL se inicialice por completo primero y
+luego ejecute el comando `docker-compose restart $NAME_SERVICE` en otra terminal para reiniciar el servicio bloqueado.
+
+Al ejecutarse el servicio la base de datos ya se encuentra llenada con datos de prueba provistos en el
+script `ecommerce-service/Docker/database/script.sql`
 
 ### Testing ⚙️
 
-To run manual tests, the `req.http` file is included with requests to localhost. Install `REST Client` for Visual Studio Code or` RESTer HTTP Client` for Sublime Text to be able to perform file requests from the same text editor.
+Para ejecutar los tests manualmente, el archivo `delivery-service/req.http` contiene los requests para localhost.
+Instalar `REST Client` para Visual Studio Code o ` RESTer HTTP Client` para Sublime Text para poder ejecutar el archivo
+en su IDE.
 
-To run the tests:
+Para la ejecución de tests automáticos:
 
-- Have the services running using `docker-compose up`.
-- In another console, run `docker exec ecommerce-service npm test`.
+- Ejecutar el servicio con `docker-compose up`.
+- En otro terminal, ejecutar `docker exec delivery-service npm test`.
 
-Repository tests write data to container databases, but write them to temporary tables or collections with the suffix "\ _test" that are deleted once they are finished, so as not to carry the actual data. Bear in mind that in the case of Firestore there is no data persistence yet; if the service is lowered and raised again, the previous data is lost.
+Al ejecutarse los test automáticos se crearán tablas temporales con el sufijo "_test", las cuales son eliminadas una vez
+terminada la ejecución de los tests.
+
+## _ENDPOINTS_
+
+### Obtener todas las categorias
+
+#### Request
+
+```
+GET http://localhost:8001/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+    {
+        "id": 1,
+        "name": "Categoría 1",
+        "description": "Descripción"
+    },
+    {
+        "id": 2,
+        "name": "Categoría 2",
+        "description": "Descripción"
+    },
+    {
+        "id": 3,
+        "name": "Categoría 3",
+        "description": "Descripción"
+    }
+]
+```
+
+### Obtener categoria por ID
+
+#### Request
+
+```
+GET http://localhost:8001/categories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+{
+    "id": 1,
+    "name": "Categoría 1",
+    "description": "Descripción"
+}
+```
+
+### Crear categoria
+
+#### Request
+
+```
+POST http://localhost:8001/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+```
+
+#### Response
+
+```
+{
+  "id": 4,
+  "name": "Categoría 4",
+  "description": "Descripción"
+}
+```
+
+### Actualizar categoria
+
+#### Request
+
+```
+PUT http://localhost:8001/categories/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+```
+
+#### Response
+
+```
+{
+  "id": "1",
+  "name": "Nueva categoría 1",
+  "description": "Nueva descripción"
+}
+```
+
+### Borrar categoria
+
+#### Request
+
+```
+DELETE http://localhost:8001/categories/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+Deleted 4
+```
+
+### Obtener todos los usuarios
+
+#### Request
+
+```
+GET http://localhost:8001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 1,
+    "name": "admin",
+    "email": "admin@gmail.com",
+    "is_admin": 1
+  },
+  {
+    "id": 2,
+    "name": "admin2",
+    "email": "admin2@gmail.com",
+    "is_admin": 1
+  },
+  {
+    "id": 3,
+    "name": "seller1",
+    "email": "seller1@gmail.com",
+    "is_admin": 0
+  },
+  {
+    "id": 4,
+    "name": "seller2",
+    "email": "seller2@gmail.com",
+    "is_admin": 0
+  },
+  {
+    "id": 5,
+    "name": "seller3",
+    "email": "seller3@gmail.com",
+    "is_admin": 0
+  },
+  {
+    "id": 6,
+    "name": "buyer1",
+    "email": "buyer1@gmail.com",
+    "is_admin": 0
+  },
+  {
+    "id": 7,
+    "name": "buyer2",
+    "email": "buyer2@gmail.com",
+    "is_admin": 0
+  },
+  {
+    "id": 8,
+    "name": "buyer3",
+    "email": "buyer3@gmail.com",
+    "is_admin": 0
+  }
+]
+```
+
+### Obtener usuario por ID
+
+#### Request
+
+```
+GET http://localhost:8001/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+{
+  "id": 1,
+  "name": "admin",
+  "email": "admin@gmail.com",
+  "is_admin": true
+}
+```
+
+### Crear usuario
+
+#### Request
+
+```
+POST http://localhost:8001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "name": "buyer4",
+  "email": "buyer4@gmail.com",
+  "password": "123456",
+  "is_admin": false
+}
+```
+
+#### Response
+
+```
+{
+  "id": 9,
+  "name": "buyer4",
+  "email": "buyer4@gmail.com",
+  "password": "sha1$2fb36374$1$df179626c2a1e964c177fcdd59c4621b73faab6e",
+  "is_admin": false
+}
+```
+
+### Actualizar usuario
+
+#### Request
+
+```
+PUT http://localhost:8001/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "name": "admin1",
+  "email": "admin1@gmail.com",
+  "password": "123456",
+  "is_admin": true
+}
+```
+
+#### Response
+
+```
+{
+  "id": "1",
+  "name": "admin1",
+  "email": "admin1@gmail.com",
+  "password": "sha1$f152f699$1$a99d099ebf0c9ecf888381192263c20c8f105d43",
+  "is_admin": true
+}
+```
+
+### Borrar usuario
+
+#### Request
+
+```
+DELETE http://localhost:8001/users/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+Deleted 9
+```
+
+### Obtener todos los productos
+
+#### Request
+
+```
+GET http://localhost:8001/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 1,
+    "name": "Producto 1",
+    "description": "descripción producto",
+    "quantity": 3,
+    "sellerUserId": 3,
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Producto 2",
+    "description": "descripción producto",
+    "quantity": 8,
+    "sellerUserId": 3,
+    "categoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "Producto 3",
+    "description": "descripción producto",
+    "quantity": 7,
+    "sellerUserId": 4,
+    "categoryId": 2
+  },
+  {
+    "id": 4,
+    "name": "Producto 4",
+    "description": "descripción producto",
+    "quantity": 9,
+    "sellerUserId": 4,
+    "categoryId": 2
+  },
+  {
+    "id": 5,
+    "name": "Producto 5",
+    "description": "descripción producto",
+    "quantity": 10,
+    "sellerUserId": 5,
+    "categoryId": 1
+  },
+  {
+    "id": 6,
+    "name": "Producto 6",
+    "description": "descripción producto",
+    "quantity": 0,
+    "sellerUserId": 5,
+    "categoryId": 2
+  }
+]
+```
+
+### Obtener producto por ID
+
+#### Request
+
+```
+GET http://localhost:8001/products/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+{
+  "status": "active",
+  "id": 1,
+  "name": "Producto 1",
+  "description": "descripción producto",
+  "quantity": 3,
+  "sellerUserId": 3,
+  "categoryId": 1
+}
+```
+
+### Crear producto
+
+#### Request
+
+```
+POST http://localhost:8001/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "name": "Producto 7",
+  "description": "descripción producto",
+  "quantity": 0,
+  "sellerUserId": 5,
+  "categoryId": 2
+}
+```
+
+#### Response
+
+```
+{
+  "status": "inactive",
+  "id": 7,
+  "name": "Producto 7",
+  "description": "descripción producto",
+  "quantity": 0,
+  "sellerUserId": 5,
+  "categoryId": 2
+}
+```
+
+### Actualizar producto
+
+#### Request
+
+```
+PUT http://localhost:8001/products/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "name": "Nuevo producto 1",
+  "description": "Nueva descripción producto 1",
+  "quantity": 4,
+  "sellerUserId": 3,
+  "categoryId": 2
+}
+```
+
+#### Response
+
+```
+{
+  "id": "1",
+  "name": "Nuevo producto 1",
+  "description": "Nueva descripción producto 1",
+  "quantity": 4,
+  "sellerUserId": 3,
+  "categoryId": 2,
+  "status": "active"
+}
+```
+
+### Borrar producto
+
+#### Request
+
+```
+DELETE http://localhost:8001/products/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+Deleted 7
+```
+
+### Obtener todas las transacciones
+
+#### Request
+
+```
+GET http://localhost:8001/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 1,
+    "buyerUserId": 6
+  },
+  {
+    "id": 2,
+    "buyerUserId": 7
+  },
+  {
+    "id": 3,
+    "buyerUserId": 8
+  }
+]
+```
+
+### Obtener transaccion por ID
+
+#### Request
+
+```
+GET http://localhost:8001/transactions/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+{
+  "id": 1,
+  "buyerUserId": 6,
+  "Products": [
+    {
+      "status": "active",
+      "id": 1,
+      "name": "Nuevo producto 1",
+      "description": "Nueva descripción producto 1",
+      "quantity": 4,
+      "sellerUserId": 3,
+      "categoryId": 2
+    },
+    {
+      "status": "active",
+      "id": 2,
+      "name": "Producto 2",
+      "description": "descripción producto",
+      "quantity": 8,
+      "sellerUserId": 3,
+      "categoryId": 1
+    },
+    {
+      "status": "active",
+      "id": 3,
+      "name": "Producto 3",
+      "description": "descripción producto",
+      "quantity": 7,
+      "sellerUserId": 4,
+      "categoryId": 2
+    }
+  ]
+}
+```
+
+### Crear transaccion
+
+#### Request
+
+```
+POST http://localhost:8001/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "buyerUserId": 8,
+  "productIds": [
+    3,
+    4
+  ]
+}
+```
+
+#### Response
+
+```
+{
+  "id": 4,
+  "buyerUserId": 8
+}
+```
+
+### Actualizar transaccion
+
+#### Request
+
+```
+PUT http://localhost:8001/transactions/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+Content-Type: application/json
+
+{
+  "buyerUserId": 8
+}
+```
+
+#### Response
+
+```
+{
+  "id": "1",
+  "buyerUserId": 8
+}
+```
+
+### Borrar transaccion
+
+#### Request
+
+```
+DELETE http://localhost:8001/transactions/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+Deleted 4
+```
+
+### Listar compradores
+
+#### Request
+
+```
+GET http://localhost:8001/buyers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 7,
+    "name": "buyer2",
+    "email": "buyer2@gmail.com",
+    "transactions": 1
+  },
+  {
+    "id": 8,
+    "name": "buyer3",
+    "email": "buyer3@gmail.com",
+    "transactions": 2
+  }
+]
+```
+
+### Listar vendedores
+
+#### Request
+
+```
+GET http://localhost:8001/sellers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 3,
+    "name": "seller1",
+    "email": "seller1@gmail.com",
+    "products": 2
+  },
+  {
+    "id": 4,
+    "name": "seller2",
+    "email": "seller2@gmail.com",
+    "products": 2
+  },
+  {
+    "id": 5,
+    "name": "seller3",
+    "email": "seller3@gmail.com",
+    "products": 2
+  }
+]
+```
+
+### Listar transacciones por compradores
+
+#### Request
+
+```
+GET http://localhost:8001/buyers/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 2,
+    "buyerUserId": 7,
+    "buyer": "buyer2"
+  },
+  {
+    "id": 1,
+    "buyerUserId": 8,
+    "buyer": "buyer3"
+  },
+  {
+    "id": 3,
+    "buyerUserId": 8,
+    "buyer": "buyer3"
+  }
+]
+```
+
+### Listar transacciones por vendedores
+
+#### Request
+
+```
+GET http://localhost:8001/sellers/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 2,
+    "sellerUserId": 3,
+    "seller": "seller1"
+  },
+  {
+    "id": 2,
+    "sellerUserId": 4,
+    "seller": "seller2"
+  },
+  {
+    "id": 1,
+    "sellerUserId": 3,
+    "seller": "seller1"
+  },
+  {
+    "id": 1,
+    "sellerUserId": 4,
+    "seller": "seller2"
+  },
+  {
+    "id": 3,
+    "sellerUserId": 4,
+    "seller": "seller2"
+  }
+]
+```
+
+### Listar categorias por usuario comprador
+
+#### Request
+
+```
+GET http://localhost:8001/buyers/8/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
+```
+
+#### Response
+
+```
+[
+  {
+    "id": 1,
+    "name": "Nueva categoría 1"
+  },
+  {
+    "id": 2,
+    "name": "Categoría 2"
+  }
+]
+```
 
 ### Autores ✒️
 
-* **Autor:** Hans Auzian C., hans.auzian@enviame.io
+* **Autor:** Mauro Flores F., mauroflores8193@gmail.com

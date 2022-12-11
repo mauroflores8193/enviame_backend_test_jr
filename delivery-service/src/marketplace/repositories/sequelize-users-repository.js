@@ -21,6 +21,24 @@ class SequelizeUsersRepository extends SequelizeRepository {
     }
   }
 
+  options() {
+    return {
+      scopes: {
+        withoutPassword: {
+          attributes: { exclude: ['password'] },
+        }
+      }
+    }
+  }
+
+  async getAll() {
+    return await this.model.scope('withoutPassword').findAll({ raw: true });
+  }
+
+  async get(id) {
+    return await this.model.scope('withoutPassword').findByPk(id);
+  }
+
   addRelations(productsRepository, transactionsRepository) {
     this.model.hasMany(productsRepository.model, { as: 'SellerUser', foreignKey: 'sellerUserId' });
     this.model.hasMany(transactionsRepository.model, { as: 'BuyerUser', foreignKey: 'buyerUserId' });

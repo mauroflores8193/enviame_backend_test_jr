@@ -7,15 +7,17 @@ class SequelizeRepository {
       tableName += "_test";
     }
 
-    const options = {
+    const defaultOptions = {
       tableName: tableName,
-      timestamps: false,
+      timestamps: false
     };
 
-    this.model = sequelizeClient.sequelize.define(modelName, this.columns(), options);
+    this.model = sequelizeClient.sequelize.define(modelName, this.columns(), Object.assign(defaultOptions, this.options()));
   }
 
   columns() {}
+
+  options() {}
 
   async getAll() {
     return await this.model.findAll({ raw: true });
