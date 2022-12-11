@@ -52,8 +52,8 @@ class SequelizeClient {
 
   }
 
-  async query(sql) {
-    return await this.sequelize.query(sql, { type: QueryTypes.SELECT })
+  async query(sql, options) {
+    return await this.sequelize.query(sql, Object.assign({ type: QueryTypes.SELECT }, options))
   }
 
 }

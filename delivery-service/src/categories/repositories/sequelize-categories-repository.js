@@ -41,7 +41,7 @@ class SequelizeCategoriesRepository {
   }
 
   async createCategory(category) {
-    const data = await this.categoryModel.create(category);    
+    const data = await this.categoryModel.create(category);
     return data.id;
   }
 
@@ -79,7 +79,15 @@ class SequelizeCategoriesRepository {
   }
 
   async getCategoriesByBuyer(buyerId) {
-    return await this.sequelizeClient.query("");
+    console.log(buyerId)
+    return await this.sequelizeClient.query(`
+      SELECT DISTINCT c.id, c.name 
+      FROM Categories as c 
+        JOIN Products as p ON c.id = p.CategoryId 
+        JOIN TransactionProducts as tp ON p.id = tp.ProductId 
+        JOIN Transactions as t on tp.TransactionId = t.id
+      WHERE t.BuyerUserId = ?       
+    `, {replacements: [buyerId]});
   }
 
 }
