@@ -82,10 +82,10 @@ class SequelizeCategoriesRepository {
     return await this.sequelizeClient.query(`
       SELECT DISTINCT c.id, c.name 
       FROM Categories as c 
-        JOIN Products as p ON c.id = p.CategoryId 
-        JOIN TransactionProducts as tp ON p.id = tp.ProductId 
-        JOIN Transactions as t on tp.TransactionId = t.id
-      WHERE t.BuyerUserId = ?       
+        JOIN Products as p ON c.id = p.categoryId 
+        JOIN TransactionProducts as tp ON p.id = tp.productId 
+        JOIN Transactions as t on tp.transactionId = t.id
+      WHERE t.buyerUserId = ?       
     `, {replacements: [buyerId]});
   }
 

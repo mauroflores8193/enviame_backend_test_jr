@@ -86,8 +86,8 @@ Content-Type: application/json
   "name": "Producto 6",
   "description": "descripción producto",
   "quantity": 0,
-  "SellerUserId": 5,
-  "CategoryId": 2
+  "sellerUserId": 5,
+  "categoryId": 2
 }
 
 ### Actualizar producto.
@@ -99,8 +99,8 @@ Content-Type: application/json
   "name": "Nuevo producto 1",
   "description": "Nueva descripción producto 1",
   "quantity": 4,
-  "SellerUserId": 3,
-  "CategoryId": 2
+  "sellerUserId": 3,
+  "categoryId": 2
 }
 
 ### Borrar producto.
@@ -122,8 +122,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 Content-Type: application/json
 
 {
-  "BuyerUserId": 8,
-  "ProductIds": [
+  "buyerUserId": 8,
+  "productIds": [
     3,
     4
   ]

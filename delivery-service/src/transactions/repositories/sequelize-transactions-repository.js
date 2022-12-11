@@ -38,9 +38,9 @@ class SequelizeTransactionsRepository {
 
   async createTransaction(transaction) {
     const data = await this.transactionModel.create(transaction);
-    for (let productId of transaction.ProductIds) {
+    for (let productId of transaction.productIds) {
       const product = await this.productsRepository.getProduct(productId)
-      if(product.status === 'active') {
+      if (product.status === 'active') {
         product.decrement('quantity', { by: 1 })
         data.addProduct(product)
       }
@@ -64,7 +64,7 @@ class SequelizeTransactionsRepository {
         through: { attributes: [] }
       }]
     })
-    for(let product of transaction.Products) {
+    for (let product of transaction.Products) {
       product.increment('quantity', { by: 1 })
     }
     await transaction.destroy();
@@ -87,22 +87,25 @@ class SequelizeTransactionsRepository {
 
   addProductRelation(productsRepository) {
     this.productsRepository = productsRepository
-    this.transactionModel.belongsToMany(productsRepository.productModel, { through: 'TransactionProducts' })
+    this.transactionModel.belongsToMany(productsRepository.productModel, {
+      through: 'TransactionProducts',
+      foreignKey: 'transactionId'
+    })
   }
 
   async getTransactionsByBuyers() {
     return await this.sequelizeClient.query(`
-      SELECT t.id, t.BuyerUserId, u.name as buyer
-      FROM Users as u JOIN Transactions as t ON u.id = t.BuyerUserId
+      SELECT t.id, t.buyerUserId, u.name as buyer
+      FROM Users as u JOIN Transactions as t ON u.id = t.buyerUserId
     `);
   }
 
   async getTransactionsBySellers() {
     return await this.sequelizeClient.query(`
-      SELECT DISTINCT t.id, p.SellerUserId, u.name as seller
+      SELECT DISTINCT t.id, p.sellerUserId, u.name as seller
       FROM Transactions as t
-       JOIN TransactionProducts as tp ON t.id = tp.TransactionId
-       JOIN Products as p ON tp.ProductId = p.id JOIN Users as u ON p.SellerUserId = u.id
+       JOIN TransactionProducts as tp ON t.id = tp.transactionId
+       JOIN Products as p ON tp.productId = p.id JOIN Users as u ON p.sellerUserId = u.id
     `);
   }
 

@@ -3,17 +3,17 @@ class Transaction {
   static schema = {
     type: "object",
     properties: {
-      BuyerUserId: {type: "integer", errorMessage: 'must be of integer type'},
-      ProductIds: {type: "array", items: {type: "integer"}, errorMessage: 'must be of integer array type'}
+      buyerUserId: {type: "integer", errorMessage: 'must be of integer type'},
+      productIds: {type: "array", items: {type: "integer"}, errorMessage: 'must be of integer array type'}
     },
-    required: ["BuyerUserId", "ProductIds"],
+    required: ["buyerUserId", "productIds"],
     additionalProperties: false,
   }
 
-  constructor(id, BuyerUserId, ProductIds) {
+  constructor(id, buyerUserId, productIds) {
     this.id = id;
-    this.BuyerUserId = BuyerUserId;
-    this.ProductIds = ProductIds;
+    this.buyerUserId = buyerUserId;
+    this.productIds = productIds;
   }
 
 }

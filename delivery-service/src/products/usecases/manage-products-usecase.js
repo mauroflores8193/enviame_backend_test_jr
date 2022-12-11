@@ -15,14 +15,14 @@ class ManageProductsUsecase {
   }
 
   async createProduct(data) {
-    const product = new Product(undefined, data.name, data.description, data.quantity, data.SellerUserId, data.CategoryId);
+    const product = new Product(undefined, data.name, data.description, data.quantity, data.sellerUserId, data.categoryId);
     const id = await this.productsRepository.createProduct(product);
     product.id = id;
     return product;
   }
 
   async updateProduct(id, data) {
-    const product = new Product(id, data.name, data.description, data.quantity, data.SellerUserId, data.CategoryId);
+    const product = new Product(id, data.name, data.description, data.quantity, data.sellerUserId, data.categoryId);
     await this.productsRepository.updateProduct(product);
     return product;
   }

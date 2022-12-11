@@ -15,12 +15,12 @@ class ManageTransactionsUsecase {
   }
 
   async createTransaction(data) {
-    const transaction = new Transaction(undefined, data.BuyerUserId, data.ProductIds);
+    const transaction = new Transaction(undefined, data.buyerUserId, data.productIds);
     return await this.transactionsRepository.createTransaction(transaction);
   }
 
   async updateTransaction(id, data) {
-    const transaction = new Transaction(id, data.BuyerUserId);
+    const transaction = new Transaction(id, data.buyerUserId);
     await this.transactionsRepository.updateTransaction(transaction);
     return transaction;
   }
