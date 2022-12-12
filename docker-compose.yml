@@ -30,30 +30,6 @@ services:
       - ecommerce-mysql
       - ecommerce-redis
       - ecommerce-firestore
-
-  delivery-app:
-
-    build: ${DELIVERY_SERVICE_PATH}/Docker/app/.
-    container_name: ${DELIVERY_SERVICE_NAME}
-    command: [ "npm", "run", "dev" ]
-
-    env_file:
-      - ${DELIVERY_SERVICE_PATH}/Docker/app/.env
-      - .env
-
-    environment:
-      - SEQUELIZE_HOST=${DELIVERY_MYSQL_NAME}
-      - SEQUELIZE_DATABASE=${DELIVERY_MYSQL_DATABASE}
-
-    volumes:
-      - ${DELIVERY_SERVICE_PATH}/src:/app/src
-      - ${DELIVERY_SERVICE_PATH}/tests:/app/tests
-
-    ports:
-      - ${DELIVERY_APP_PORT}:8080
-
-    depends_on:
-      - ecommerce-mysql
   
   ecommerce-mysql:
     

@@ -34,7 +34,6 @@ Ejecutar el comando ```docker-compose``` dentro de la carpeta clonada.
 Los microservicios por defecto corren en los siguientes puertos:
 
 - ecommerce-service: 8000
-- delivery-service: 8001
 
 Puede cambiar esta y otras configuraciones en el archivo **.env**.
 
@@ -49,14 +48,14 @@ script `ecommerce-service/Docker/database/script.sql`
 
 ### Testing ⚙️
 
-Para ejecutar los tests manualmente, el archivo `delivery-service/req.http` contiene los requests para localhost.
+Para ejecutar los tests manualmente, el archivo `ecommerce-service/req.http` contiene los requests para localhost.
 Instalar `REST Client` para Visual Studio Code o ` RESTer HTTP Client` para Sublime Text para poder ejecutar el archivo
 en su IDE.
 
 Para la ejecución de tests automáticos:
 
 - Ejecutar el servicio con `docker-compose up`.
-- En otro terminal, ejecutar `docker exec delivery-service npm test`.
+- En otro terminal, ejecutar `docker exec ecommerce-service npm test`.
 
 Al ejecutarse los test automáticos se crearán tablas temporales con el sufijo "_test", las cuales son eliminadas una vez
 terminada la ejecución de los tests.
@@ -68,7 +67,7 @@ terminada la ejecución de los tests.
 #### Request
 
 ```
-GET http://localhost:8001/categories
+GET http://localhost:8000/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -99,7 +98,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/categories/1
+GET http://localhost:8000/categories/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -118,7 +117,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-POST http://localhost:8001/categories
+POST http://localhost:8000/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 ```
@@ -138,7 +137,7 @@ Content-Type: application/json
 #### Request
 
 ```
-PUT http://localhost:8001/categories/1
+PUT http://localhost:8000/categories/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 ```
@@ -158,7 +157,7 @@ Content-Type: application/json
 #### Request
 
 ```
-DELETE http://localhost:8001/categories/4
+DELETE http://localhost:8000/categories/4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -173,7 +172,7 @@ Deleted 4
 #### Request
 
 ```
-GET http://localhost:8001/users
+GET http://localhost:8000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -237,7 +236,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/users/1
+GET http://localhost:8000/users/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -257,7 +256,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-POST http://localhost:8001/users
+POST http://localhost:8000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -286,7 +285,7 @@ Content-Type: application/json
 #### Request
 
 ```
-PUT http://localhost:8001/users/1
+PUT http://localhost:8000/users/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -315,7 +314,7 @@ Content-Type: application/json
 #### Request
 
 ```
-DELETE http://localhost:8001/users/9
+DELETE http://localhost:8000/users/9
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -330,7 +329,7 @@ Deleted 9
 #### Request
 
 ```
-GET http://localhost:8001/products
+GET http://localhost:8000/products
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -394,7 +393,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/products/1
+GET http://localhost:8000/products/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -417,7 +416,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-POST http://localhost:8001/products
+POST http://localhost:8000/products
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -449,7 +448,7 @@ Content-Type: application/json
 #### Request
 
 ```
-PUT http://localhost:8001/products/1
+PUT http://localhost:8000/products/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -481,7 +480,7 @@ Content-Type: application/json
 #### Request
 
 ```
-DELETE http://localhost:8001/products/7
+DELETE http://localhost:8000/products/7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -496,7 +495,7 @@ Deleted 7
 #### Request
 
 ```
-GET http://localhost:8001/transactions
+GET http://localhost:8000/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -524,7 +523,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/transactions/1
+GET http://localhost:8000/transactions/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -571,7 +570,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-POST http://localhost:8001/transactions
+POST http://localhost:8000/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -598,7 +597,7 @@ Content-Type: application/json
 #### Request
 
 ```
-PUT http://localhost:8001/transactions/1
+PUT http://localhost:8000/transactions/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 Content-Type: application/json
 
@@ -621,7 +620,7 @@ Content-Type: application/json
 #### Request
 
 ```
-DELETE http://localhost:8001/transactions/4
+DELETE http://localhost:8000/transactions/4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -636,7 +635,7 @@ Deleted 4
 #### Request
 
 ```
-GET http://localhost:8001/buyers
+GET http://localhost:8000/buyers
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -664,7 +663,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/sellers
+GET http://localhost:8000/sellers
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -698,7 +697,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/buyers/transactions
+GET http://localhost:8000/buyers/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -729,7 +728,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/sellers/transactions
+GET http://localhost:8000/sellers/transactions
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
@@ -770,7 +769,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 #### Request
 
 ```
-GET http://localhost:8001/buyers/8/categories
+GET http://localhost:8000/buyers/8/categories
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiaWF0IjoxNjcwNzY5MTk5fQ.p6ylVbCEgzWrEqSde1bC2ppFjM75hrVdDri32cc3c1w
 ```
 
