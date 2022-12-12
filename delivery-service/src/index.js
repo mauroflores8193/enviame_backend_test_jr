@@ -29,7 +29,7 @@ const sequelizeProductsRepository = new SequelizeProductsRepository(sequelizeCli
 const manageProductsUsecase = new ManageProductsUsecase(sequelizeProductsRepository);
 
 const sequelizeTransactionsRepository = new SequelizeTransactionsRepository(sequelizeClient);
-const manageTransactionsUsecase = new ManageTransactionsUsecase(sequelizeTransactionsRepository);
+const manageTransactionsUsecase = new ManageTransactionsUsecase(sequelizeTransactionsRepository, sequelizeProductsRepository);
 
 sequelizeUsersRepository.addRelations(sequelizeProductsRepository, sequelizeTransactionsRepository)
 sequelizeProductsRepository.addRelations(sequelizeUsersRepository, sequelizeCategoriesRepository, sequelizeTransactionsRepository)

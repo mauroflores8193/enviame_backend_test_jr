@@ -17,18 +17,6 @@ class SequelizeTransactionsRepository extends SequelizeRepository {
     };
   }
 
-  async create(transaction) {
-    const data = await super.create(transaction);
-    for (let productId of transaction.productIds) {
-      const product = await this.productsRepository.get(productId)
-      if (product.status === 'active') {
-        product.decrement('quantity', { by: 1 })
-        data.addProduct(product)
-      }
-    }
-    return data;
-  }
-
   async get(id) {
     return await this.model.findByPk(id, {
       include: [{
@@ -36,14 +24,6 @@ class SequelizeTransactionsRepository extends SequelizeRepository {
         through: { attributes: [] }
       }]
     })
-  }
-
-  async delete(id) {
-    const transaction = await this.get(id)
-    for (let product of transaction.Products) {
-      product.increment('quantity', { by: 1 })
-    }
-    await transaction.destroy();
   }
 
   addRelations(productsRepository, usersRepository) {

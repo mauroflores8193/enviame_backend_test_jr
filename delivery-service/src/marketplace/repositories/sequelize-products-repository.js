@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Op } = require('sequelize');
 const SequelizeRepository = require("./sequelize-repository");
 
 class SequelizeProductsRepository extends SequelizeRepository {
@@ -26,12 +26,23 @@ class SequelizeProductsRepository extends SequelizeRepository {
     };
   }
 
+  options() {
+    return {
+      scopes: {
+        active: { where: { quantity: { [Op.gt]: 0 } } }
+      }
+    }
+  }
+
   addRelations(usersRepository, categoriesRepository, transactionsRepository) {
     this.model.belongsTo(usersRepository.model, { as: 'SellerUser', foreignKey: 'sellerUserId' });
     this.model.belongsTo(categoriesRepository.model, { foreignKey: 'categoryId' });
     this.model.belongsToMany(transactionsRepository.model, { through: 'TransactionProducts', foreignKey: 'productId' });
   }
 
+  async getActives(ids) {
+    return await this.model.scope('active').findAll({ where: { id: ids } });
+  }
 
 }
 

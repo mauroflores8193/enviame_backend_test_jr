@@ -2,8 +2,9 @@ const Transaction = require('../entities/transaction');
 
 class ManageTransactionsUsecase {
 
-  constructor(transactionsRepository) {
+  constructor(transactionsRepository, productsRepository) {
     this.transactionsRepository = transactionsRepository;
+    this.productsRepository = productsRepository;
   }
 
   async getTransactions() {
@@ -15,8 +16,14 @@ class ManageTransactionsUsecase {
   }
 
   async createTransaction(data) {
-    const transaction = new Transaction(undefined, data.buyerUserId, data.productIds);
-    return await this.transactionsRepository.create(transaction);
+    const transactionEntity = new Transaction(undefined, data.buyerUserId);
+    const transaction = await this.transactionsRepository.create(transactionEntity);
+    const products = await this.productsRepository.getActives(data.productIds)
+    transaction.addProducts(products)
+    for (let product of products) {
+      product.decrement('quantity', { by: 1 })
+    }
+    return transaction
   }
 
   async updateTransaction(id, data) {
@@ -26,7 +33,11 @@ class ManageTransactionsUsecase {
   }
 
   async deleteTransaction(id) {
-    await this.transactionsRepository.delete(id);
+    const transaction = await this.transactionsRepository.get(id)
+    for (let product of transaction.Products) {
+      product.increment('quantity', { by: 1 })
+    }
+    await transaction.destroy();
   }
 
   async getTransactionsByBuyers() {
